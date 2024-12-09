@@ -1,12 +1,23 @@
 import { Router } from "express";
-import { signup, login, logout } from "../controllers/auth.controller.js";
-// import { verifyJWT } from "../middlewares/auth.middleware.js";
-// import { apiResponse } from "../utils/apiResponse.js";
+import {
+  signup,
+  login,
+  logout,
+  updateProfile,
+  checkAuth,
+} from "../controllers/auth.controller.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router();
 
-router.route("/signup").get(signup);
-router.route("/login").get(login);
-router.route("/logout").get(logout);
+router.route("/signup").post(signup);
+router.route("/login").post(login);
+router.route("/logout").post(logout);
+router
+  .route("/update-profile")
+  .put(verifyJWT, upload.single("profilePic"), updateProfile);
+
+router.route("/check-auth").get(verifyJWT, checkAuth);
 
 export default router;
