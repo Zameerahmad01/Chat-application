@@ -1,9 +1,11 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
 
 const app = express();
 
+app.use(morgan("dev"));
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -25,8 +27,8 @@ app.use(cookieParser());
 
 //routes
 import authRoutes from "./routes/auth.routes.js";
-import messageRoutes from "./routes/message.routes.js";
+import projectsRoutes from "./routes/project.routes.js";
 app.use("/api/auth", authRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/project", projectsRoutes);
 
 export { app };
