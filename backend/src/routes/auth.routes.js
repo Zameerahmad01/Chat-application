@@ -3,8 +3,9 @@ import {
   signup,
   login,
   logout,
+  getAllUsers,
   updateProfile,
-  checkAuth,
+  getProfile,
 } from "../controllers/auth.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -18,6 +19,8 @@ router
   .route("/update-profile")
   .put(verifyJWT, upload.single("profilePic"), updateProfile);
 
-router.route("/check-auth").get(verifyJWT, checkAuth);
+router.route("/get-profile").get(verifyJWT, getProfile);
+
+router.route("/get-all").get(verifyJWT, getAllUsers);
 
 export default router;
