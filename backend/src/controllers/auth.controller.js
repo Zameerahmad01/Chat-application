@@ -98,6 +98,14 @@ const logout = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, {}, "Logout Successfully"));
 });
 
+const getAllUsers = asyncHandler(async (req, res) => {
+  const loggedInUser = req.user._id;
+  const users = await User.find({ _id: { $ne: loggedInUser } });
+  res
+    .status(200)
+    .json(new apiResponse(200, users, "All users fetched successfully"));
+});
+
 const updateProfile = asyncHandler(async (req, res) => {
   const profilePicPath = req.file.path;
 
@@ -130,9 +138,9 @@ const updateProfile = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, updatedUser, "profilePic Updated Successfully"));
 });
 
-const checkAuth = asyncHandler((req, res) => {
+const getProfile = asyncHandler((req, res) => {
   const user = req.user;
   res.status(200).json(new apiResponse(200, user, "Authenticated"));
 });
 
-export { signup, login, logout, updateProfile, checkAuth };
+export { signup, login, logout, updateProfile, getProfile, getAllUsers };
