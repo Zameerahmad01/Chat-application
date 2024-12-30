@@ -5,6 +5,7 @@ import http from "http";
 import { Server } from "socket.io";
 import jwt from "jsonwebtoken";
 import projectModel from "./models/project.model.js";
+import { generatePrompt } from "./utils/aiconfig.js";
 
 dotenv.config();
 
@@ -51,10 +52,27 @@ io.on("connection", (socket) => {
   console.log("a user connected");
   socket.join(socket.roomId);
 
-  socket.on("project-message", (data) => {
+  socket.on("project-message", async (data) => {
     console.log(data);
 
+    const message = data.message;
+    const isAiPresent = message.includes("@ai");
+
+    // console.log(isAiPresent);
     socket.broadcast.to(socket.roomId).emit("project-message", data);
+
+    if (isAiPresent) {
+      const prompt = message.replace("@ai", "");
+      const result = await generatePrompt(prompt);
+      io.to(socket.roomId).emit("project-message", {
+        sender: {
+          _id: "ai",
+          email: "Ai",
+        },
+        message: result,
+      });
+      return;
+    }
   });
 
   socket.on("disconnect", () => {
