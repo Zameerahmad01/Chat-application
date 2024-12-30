@@ -28,7 +28,9 @@ app.use(cookieParser());
 //routes
 import authRoutes from "./routes/auth.routes.js";
 import projectsRoutes from "./routes/project.routes.js";
+import aiRoutes from "./routes/ai.routes.js";
 app.use("/api/auth", authRoutes);
 app.use("/api/project", projectsRoutes);
+app.use("/api/ai", aiRoutes);
 
 export { app };
