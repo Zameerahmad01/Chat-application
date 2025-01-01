@@ -16,6 +16,7 @@ const model = genAI.getGenerativeModel({
   response: {
 
   "text": "this is you fileTree structure of the express server",
+  //always use the fileTree structure in the response to show the file structure of the code use same name fileTree
   "fileTree": {
     "app.js": {
         file: {
