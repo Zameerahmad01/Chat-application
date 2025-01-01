@@ -10,6 +10,10 @@ const projectSchema = new mongoose.Schema(
       unique: true,
     },
     users: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    fileTree: {
+      type: Object,
+      default: {},
+    },
   },
   { timestamps: true }
 );
