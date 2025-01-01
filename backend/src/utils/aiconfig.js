@@ -16,69 +16,48 @@ const model = genAI.getGenerativeModel({
   response: {
 
   "text": "this is you fileTree structure of the express server",
-  //always use the fileTree structure in the response to show the file structure of the code use same name fileTree
+  //always use the fileTree structure in the response to show the file structure of the code use same name fileTree and don't use file name like routes/index.js
+   
   "fileTree": {
     "app.js": {
-        file: {
-            contents: "
-            const express = require('express');
+        "file": {
+            "contents": "
+const express = require('express');
 
-            const app = express();
+const app = express();
 
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 
-            app.get('/', (req, res) => {
-                res.send('Hello World!');
-            });
-
-
-            app.listen(3000, () => {
-                console.log('Server is running on port 3000');
-            })
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
             "
-        
+        }
     },
-  },
-
     "package.json": {
-        file: {
-            contents: "
-
-            {
-                "name": "temp-server",
-                "version": "1.0.0",
-                "main": "index.js",
-                "scripts": {
-                    "test": "echo \"Error: no test specified\" && exit 1"
-                },
-                "keywords": [],
-                "author": "",
-                "license": "ISC",
-                "description": "",
-                "dependencies": {
-                    "express": "^4.21.2"
-                }
-  }
-
-            
-            "
-            
-            
-
-        },
-
+        "file": {
+            "contents": "
+{
+    \"name\": \"temp-server\",
+    \"version\": \"1.0.0\",
+    \"main\": \"index.js\",
+    \"scripts\": {
+        \"test\": \"echo \"Error: no test specified\" && exit 1\"
     },
-
-  },
-  "buildCommand": {
-    mainItem: "npm",
-        commands: [ "install" ]
-  },
-
-  "startCommand": {
-    mainItem: "node",
-        commands: [ "app.js" ]
-  }
-  }
+    \"keywords\": [],
+    \"author\": \"\",
+    \"license\": \"ISC\",
+    \"description\": \"\",
+    \"dependencies\": {
+        \"express\": \"^4.21.2\"
+    }
+}
+            "
+        }
+    }
+}
 
   user:Create an express application 
 
@@ -95,8 +74,7 @@ const model = genAI.getGenerativeModel({
    
    </example>
 
-  IMPORTANT : don't use file name like routes/index.js
-   
+  
    
 `,
 });
